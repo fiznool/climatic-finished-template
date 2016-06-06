@@ -1,0 +1,25 @@
+<ion-view view-title="Climatic">
+  <ion-nav-buttons side="secondary">
+    <button class="button button-icon button-icon-small icon ion-plus-round" ng-click="$ctrl.showAddPostModal()"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh="$ctrl.refreshFeeds()">
+    </ion-refresher>
+    <ul class="list">
+      <li ng-repeat="item in $ctrl.posts">
+        <a ui-sref="post({id:item.objectId})" class="item item-thumbnail-left item-icon-right">
+          <img ng-src="{{:: item.picture.url }}">
+          <h2>{{:: item.title }}</h2>
+          <p>{{:: item.description }}</p>
+          <i class="icon ion-chevron-right icon-accessory"></i>
+        </a>
+      </li>
+    </ul>
+    <ion-infinite-scroll
+      ng-if="$ctrl.hasMorePosts"
+      on-infinite="$ctrl.loadNext()"
+      immediate-check="false"></ion-infinite-scroll>
+  </ion-content>
+</ion-view>

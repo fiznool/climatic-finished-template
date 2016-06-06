@@ -1,0 +1,58 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-calm">
+    <button class="button button-icon button-icon-small icon ion-close-round" ng-click="$ctrl.cancel()"></button>
+    <h1 class="title">Add Post</h1>
+    <button class="button button-icon button-icon-small icon ion-checkmark-round" ng-click="$ctrl.save()"></button>
+  </ion-header-bar>
+  <ion-content>
+    <form name="$ctrl.form" ng-submit="$ctrl.save()" novalidate="novalidate">
+      <div ng-if="!$ctrl.hasUsername">
+        <div class="padding card subdued">
+          <p>It looks like this is your first post. Welcome!</p>
+          <p>Please enter a username - you only need to do this once, it will be remembered for future posts.</p>
+        </div>
+        <label class="item item-input item-floating-label" ng-class="{'item-input-has-error': $ctrl.form.username.$invalid && ($ctrl.form.username.$touched || $ctrl.form.$submitted) }">
+          <span class="input-label">Username</span>
+          <input type="text" name="username" placeholder="Username" ng-model="$ctrl.formData.username" required ng-minlength="2" ng-maxlength="50">
+        </label>
+        <div
+         class="item-input-errors"
+         ng-messages="$ctrl.form.username.$error"
+         ng-show="$ctrl.form.username.$invalid && ($ctrl.form.username.$touched || $ctrl.form.$submitted)">
+          <div class="item-input-error" ng-message="required">Username is required.</div>
+          <div class="item-input-error" ng-message="minlength">Username should be at least 2 characters long.</div>
+          <div class="item-input-error" ng-message="maxlength">Username should be no more than 50 characters long.</div>
+        </div>
+      </div>
+      <div class="list">
+        <label class="item item-input item-floating-label" ng-class="{ 'item-input-has-error': $ctrl.form.title.$invalid && ($ctrl.form.title.$touched || $ctrl.form.$submitted) }">
+          <span class="input-label">Title</span>
+          <input type="text" placeholder="Title" ng-model="$ctrl.formData.title" name="title" required ng-minlength="2" ng-maxlength="30">
+        </label>
+        <div class="item-input-errors" ng-messages="$ctrl.form.title.$error" ng-show="$ctrl.form.title.$invalid && ($ctrl.form.title.$touched || $ctrl.form.$submitted)">
+          <div class="item-input-error" ng-message="required">Title is required.</div>
+          <div class="item-input-error" ng-message="minlength">Title should be at least 2 characters.</div>
+          <div class="item-input-error" ng-message="maxlength">Title should be 30 characters or less.</div>
+        </div>
+        <label class="item item-input item-floating-label" ng-class="{ 'item-input-has-error': $ctrl.form.description.$invalid && ($ctrl.form.description.$touched || $ctrl.form.$submitted) }">
+          <span class="input-label">Description</span>
+          <textarea placeholder="Description" ng-model="$ctrl.formData.description" name="description" msd-elastic="\n" required ng-minlength="10" ng-maxlength="500"></textarea>
+        </label>
+        <div class="item-input-errors" ng-messages="$ctrl.form.description.$error" ng-show="$ctrl.form.description.$invalid && ($ctrl.form.description.$touched || $ctrl.form.$submitted)">
+          <div class="item-input-error" ng-message="required">Description is required.</div>
+          <div class="item-input-error" ng-message="minlength">Description should be at least 10 characters.</div>
+          <div class="item-input-error" ng-message="maxlength">Description should be 500 characters or less.</div>
+        </div>
+      </div>
+      <div class="padding">
+        <button type="button" class="button button-outline button-positive" ng-click="$ctrl.addPicture()" ng-if="!$ctrl.formData.picture"><i class="icon ion-camera"></i>&nbsp;&nbsp;Take Picture</button>
+        <img class="full-image" ng-src="data:image/jpeg;base64,{{$ctrl.formData.picture}}" ng-if="$ctrl.formData.picture">
+        <input type="hidden" name="picture" ng-model="$ctrl.formData.picture" required>
+      </div>
+      <div class="item-input-errors" ng-messages="$ctrl.form.picture.$error" ng-show="$ctrl.form.picture.$invalid && ($ctrl.form.picture.$touched || $ctrl.form.$submitted)">
+        <div class="item-input-error" ng-message="required">Picture is required.</div>
+      </div>
+      <p class="add-post-username-display" ng-if="$ctrl.hasUsername">Posting as {{$ctrl.formData.username}}</p>
+    </form>
+  </ion-content>
+</ion-modal-view>

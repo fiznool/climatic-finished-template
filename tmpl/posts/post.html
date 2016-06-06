@@ -1,0 +1,11 @@
+<ion-view view-title="{{:: $ctrl.post.title }}">
+  <ion-content>
+    <div class="list card">
+      <div class="item item-body">
+        <img class="full-image" ng-src="{{:: $ctrl.post.picture.url}}">
+        <p class="post-user"><i class="icon ion-person"></i>{{:: $ctrl.post.username}}</p>
+        <p class="post-description">{{:: $ctrl.post.description}}</p>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
